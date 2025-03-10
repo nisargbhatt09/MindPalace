@@ -79,9 +79,6 @@ Image ID: image1, Caption: A dog playing with a frisbee in the park, Score: 0.89
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## License
-
-[Your chosen license]
 
 ## Acknowledgments
 
