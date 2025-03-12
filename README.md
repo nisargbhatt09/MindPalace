@@ -1,3 +1,6 @@
+
+![1*4KghD9iFGGzUVySCpU7E5A](https://github.com/user-attachments/assets/cc41da9c-69f5-4644-8100-ec19d5e02094)
+
 # Image Caption Memory
 
 A sophisticated image processing and retrieval system that combines state-of-the-art image captioning with semantic search capabilities. The system automatically generates natural language descriptions for images and enables semantic search through a vector database.
