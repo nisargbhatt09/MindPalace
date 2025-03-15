@@ -82,10 +82,6 @@ Image ID: image1, Caption: A dog playing with a frisbee in the park, Score: 0.89
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## License
-
-[Your chosen license]
-
 ## Acknowledgments
 
 - Salesforce for the BLIP model
@@ -96,7 +92,13 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 pip install -r requirements.txt
 
 # Process images in a directory
-python src/main.py --image-dir ./images
+python main.py --image-dir ./images
 
 # Search for images
-python src/main.py --query "dogs playing outdoors" --top-k 5 
+python src/main.py --query "dogs playing outdoors" --top-k 5
+
+# First, process your images
+python main.py --image-dir ./images
+
+# Then search for specific images
+python main.py --query "a dog playing in the park" --top-k 3 
