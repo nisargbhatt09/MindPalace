@@ -37,7 +37,7 @@ cd MindPalace
 
 2. Install required packages:
 ```bash
-pip install torch transformers sentence-transformers pinecone-client Pillow
+pip install -r requirements.txt
 ```
 
 3. Configure environment variables:
@@ -58,15 +58,12 @@ INDEX_NAME = "image-memory"
 
 3. Run the script:
 ```bash
-python image_caption_memory.py
+python main.py --image-dir ./images
+python main.py --query "dogs playing outdoors" --top-k 5
+python main.py --image-dir ./images
+python main.py --query "a dog playing in the park" --top-k 3 
+
 ```
-
-## How It Works
-
-1. **Image Processing**: The system processes images using BLIP to generate natural language captions
-2. **Vector Embedding**: Captions are converted into vector embeddings using Sentence Transformers
-3. **Storage**: Embeddings and metadata are stored in Pinecone vector database
-4. **Retrieval**: Semantic search queries return the most relevant images based on caption similarity
 
 ## Example Output
 
@@ -78,27 +75,14 @@ Query Results:
 Image ID: image1, Caption: A dog playing with a frisbee in the park, Score: 0.89
 ```
 
+## How It Works
+
+1. **Image Processing**: The system processes images using BLIP to generate natural language captions
+2. **Vector Embedding**: Captions are converted into vector embeddings using Sentence Transformers
+3. **Storage**: Embeddings and metadata are stored in Pinecone vector database
+4. **Retrieval**: Semantic search queries return the most relevant images based on caption similarity
+
+
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
-
-## Acknowledgments
-
-- Salesforce for the BLIP model
-- Sentence Transformers team
-- Pinecone for vector database services 
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Process images in a directory
-python main.py --image-dir ./images
-
-# Search for images
-python src/main.py --query "dogs playing outdoors" --top-k 5
-
-# First, process your images
-python main.py --image-dir ./images
-
-# Then search for specific images
-python main.py --query "a dog playing in the park" --top-k 3 
