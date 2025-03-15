@@ -31,7 +31,7 @@ A sophisticated image processing and retrieval system that combines state-of-the
 
 1. Clone the repository:
 ```bash
-git clone [repository-url]
+git clone https://github.com/nisargbhatt09/MindPalace
 cd image-caption-memory
 ```
 
