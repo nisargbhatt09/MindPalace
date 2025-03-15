@@ -82,9 +82,21 @@ Image ID: image1, Caption: A dog playing with a frisbee in the park, Score: 0.89
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
+## License
+
+[Your chosen license]
 
 ## Acknowledgments
 
 - Salesforce for the BLIP model
 - Sentence Transformers team
 - Pinecone for vector database services 
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Process images in a directory
+python src/main.py --image-dir ./images
+
+# Search for images
+python src/main.py --query "dogs playing outdoors" --top-k 5 
