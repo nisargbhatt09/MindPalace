@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+
+# MindPalace local data
+backend/mindpalace.db
+backend/uploads/
+*.db
+
+# Node / frontend
+node_modules/
+frontend/dist/
+
+# Misc
+.DS_Store
