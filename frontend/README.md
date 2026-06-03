@@ -1,3 +1,5 @@
+# Welcome to the FrontEnd!
+
 # MindPalace frontend
 
 React + Vite + TypeScript web app. A calm, large-text interface with two panels:
