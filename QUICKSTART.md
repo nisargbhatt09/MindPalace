@@ -4,7 +4,7 @@ A local web app that remembers your day from your photos and answers questions
 like *"where was I in the morning?"* — grounded only in your real photos.
 
 Architecture, rationale, and roadmap live in [`PLAN.md`](./PLAN.md).
-Stack: **FastAPI + SQLite (on-device) + Claude (vision & chat)** backend,
+Stack: **FastAPI + SQLite (on-device) + Mistral (Pixtral vision & chat)** backend,
 **React + Vite + TypeScript** frontend. No BLIP, no Pinecone, no embeddings —
 deterministic SQL retrieval over LLM-generated captions + tags.
 
@@ -14,7 +14,7 @@ deterministic SQL retrieval over LLM-generated captions + tags.
 cd backend
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-cp .env.example .env          # add your ANTHROPIC_API_KEY
+cp .env.example .env          # add your MISTRAL_API_KEY
 python seed.py                # optional: load a simulated day to chat with
 uvicorn app.main:app --reload --port 8000
 ```

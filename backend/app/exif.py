@@ -42,9 +42,12 @@ def extract_metadata(image_path: Path | str) -> ImageMetadata:
 
     gps = readable.get("GPSInfo")
     if gps:
-        gps_data = {GPSTAGS.get(tag, tag): value for tag, value in gps.items()}
-        if "GPSLatitude" in gps_data and "GPSLongitude" in gps_data:
-            try:
+        # Some cameras store GPSInfo as an IFD offset (an int) rather than a
+        # mapping, so guard the whole parse — never let a malformed tag abort
+        # ingestion; missing coordinates simply come back as None.
+        try:
+            gps_data = {GPSTAGS.get(tag, tag): value for tag, value in gps.items()}
+            if "GPSLatitude" in gps_data and "GPSLongitude" in gps_data:
                 lat = _to_decimal_degrees(gps_data["GPSLatitude"])
                 if gps_data.get("GPSLatitudeRef") == "S":
                     lat = -lat
@@ -52,7 +55,7 @@ def extract_metadata(image_path: Path | str) -> ImageMetadata:
                 if gps_data.get("GPSLongitudeRef") == "W":
                     lng = -lng
                 metadata.latitude, metadata.longitude = lat, lng
-            except (ValueError, TypeError, ZeroDivisionError):
-                pass
+        except (AttributeError, ValueError, TypeError, ZeroDivisionError):
+            pass
 
     return metadata

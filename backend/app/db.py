@@ -7,6 +7,8 @@ Postgres + pgvector at production scale without touching the rest of the app.
 from __future__ import annotations
 
 import sqlite3
+from collections.abc import Iterator
+from contextlib import contextmanager
 
 from .config import settings
 
@@ -29,10 +31,21 @@ CREATE INDEX IF NOT EXISTS idx_memories_captured_at ON memories(captured_at);
 """
 
 
-def get_connection() -> sqlite3.Connection:
+@contextmanager
+def get_connection() -> Iterator[sqlite3.Connection]:
+    """Yield a SQLite connection, committing on success and always closing.
+
+    Used as ``with get_connection() as conn:``. A bare ``sqlite3.Connection``
+    context manager only manages the transaction (commit/rollback) and leaves
+    the connection — and its file handle — open, so this wrapper owns the close.
+    """
     conn = sqlite3.connect(settings.db_path)
     conn.row_factory = sqlite3.Row
-    return conn
+    try:
+        yield conn
+        conn.commit()
+    finally:
+        conn.close()
 
 
 def init_db() -> None:

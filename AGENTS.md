@@ -80,7 +80,7 @@ python main.py --query "a dog playing in the park" --top-k 3
 
 Environment (via `.env`): `PINECONE_API_KEY`, `PINECONE_ENVIRONMENT`,
 `PINECONE_INDEX_NAME`. The assistant layer will also need an LLM key
-(e.g. `ANTHROPIC_API_KEY`).
+(e.g. `MISTRAL_API_KEY`).
 
 ## Conventions
 
@@ -112,11 +112,11 @@ full-stack POC. Do new work in `backend/` and `frontend/`.
 - **Backend:** FastAPI (`backend/app/`). **Frontend:** React + Vite + TS (`frontend/`).
 - **Database:** on-device **SQLite** (`backend/app/db.py`), behind a repository
   layer so Postgres + pgvector is a drop-in for production scale.
-- **Captioning:** **Claude vision** at ingest → caption + semantic tags
+- **Captioning:** **Mistral Pixtral vision** at ingest → caption + semantic tags
   (`vision.py`). No BLIP.
 - **Retrieval:** **deterministic SQL** — time/place filters + tag/caption matching
   (`repository.py`). No embeddings/vector DB at POC scale.
-- **Assistant:** **raw Anthropic SDK** tool-calling loop (`assistant.py`) — no
+- **Assistant:** **raw Mistral SDK** tool-calling loop (`assistant.py`) — no
   PydanticAI, for auditability of the grounding guarantee.
 
 See `QUICKSTART.md` to run it and `PLAN.md` for the full design.

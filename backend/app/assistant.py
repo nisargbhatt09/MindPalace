@@ -142,6 +142,11 @@ def chat(message: str, history: list[ChatMessage]) -> ChatResponse:
         msg = response.choices[0].message
 
         if msg.tool_calls:
+            # Sources must reflect what actually grounds the answer, not every
+            # exploratory search. Keep only the latest round of searches (which
+            # may itself contain several parallel tool calls) so an earlier broad
+            # probe can't surface unrelated photos beneath a "no photo" reply.
+            looked_at = {}
             messages.append(
                 {
                     "role": "assistant",

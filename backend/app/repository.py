@@ -61,7 +61,6 @@ def insert_memory(
                 longitude, place_name, caption, json.dumps(tags or []), scene, activity,
             ),
         )
-        conn.commit()
     memory = get_memory(id)
     assert memory is not None
     return memory
@@ -122,13 +121,16 @@ def search_memories(
     memories = [_row_to_memory(r) for r in rows]
 
     if content:
-        terms = [t for t in content.lower().split() if len(t) > 2]
+        terms = [t for t in content.lower().split() if len(t) >= 2]
         if terms:
             def score(memory: Memory) -> int:
                 haystack = (memory.caption + " " + " ".join(memory.tags)).lower()
                 return sum(1 for term in terms if term in haystack)
 
-            scored = [(score(m), m) for m in memories]
-            memories = [m for s, m in sorted(scored, key=lambda x: x[0], reverse=True) if s > 0]
+            scored = [(s, m) for s, m in ((score(m), m) for m in memories) if s > 0]
+            # Best content match first; ties stay in chronological order so the
+            # assistant can still orient the person by time of day.
+            scored.sort(key=lambda x: (-x[0], x[1].captured_at or datetime.min))
+            memories = [m for _, m in scored]
 
     return memories[:limit]
